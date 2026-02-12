@@ -3,18 +3,31 @@
 {% block content %}
 
 <h1>All Posts</h1>
+<hr>
 
 {% for post in posts %}
-    <div>
+    <div class="card">
         <h2>
             <a href="/post/{{ post.id }}/">
                 {{ post.title }}
             </a>
         </h2>
+
         <p>{{ post.content|truncatewords:20 }}</p>
-        <p><strong>Author:</strong> {{ post.author.username }}</p>
-        <hr>
+
+        <p>
+            <strong>Author:</strong>
+            <a href="/user/{{ post.author.username }}/">
+                {{ post.author.username }}
+            </a>
+        </p>
+
+        <p>
+            <small>{{ post.created_at }}</small>
+        </p>
     </div>
+{% empty %}
+    <p>No posts yet. Be the first to create one!</p>
 {% endfor %}
 
 {% endblock %}

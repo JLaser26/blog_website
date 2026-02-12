@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Posts by {{ profile_user.username }}</h1>
+<hr>
+
+{% for post in posts %}
+    <div>
+        <h3>
+            <a href="/post/{{ post.id }}/">
+                {{ post.title }}
+            </a>
+        </h3>
+        <p>{{ post.content|truncatewords:20 }}</p>
+        <hr>
+    </div>
+{% empty %}
+    <p>No posts yet.</p>
+{% endfor %}
+
+{% endblock %}

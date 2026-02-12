@@ -4,7 +4,7 @@ from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-
+from django.contrib.auth.models import User
 
 def home(request):
     posts = Post.objects.all()
@@ -25,6 +25,16 @@ def signup(request):
         form = UserCreationForm()
 
     return render(request, 'signup.html', {'form': form})
+
+
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    posts = Post.objects.filter(author=user)
+
+    return render(request, 'profile.html', {
+        'profile_user': user,
+        'posts': posts
+    })
 
 @login_required
 def create_post(request):
