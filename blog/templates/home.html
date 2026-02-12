@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+    {% if user.is_authenticated %}
+    Welcome, {{ user.username }} |
+    <form action="/logout/" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+
+{% else %}
+    <a href="/login/">Login</a>
+{% endif %}
+
+<hr>
+
     <h1>My Blog</h1>
     <a href="/create/">Create New Post</a>
     <hr>
